@@ -5,7 +5,8 @@ import cuid from 'cuid';
 const answerSchema = new mongoose.Schema({
   questionId: Number,
   answerGiven: String,
-  isCorrect: Boolean
+  isCorrect: Boolean,
+  correctAnswer: String
 });
 
 const examAnswerSchema = new mongoose.Schema({

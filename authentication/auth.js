@@ -10,6 +10,8 @@ import { ensureAdmin, ensureUser } from '../middleware/authmiddleware.js';
 import { blacklistToken } from '../utils/tokenBlacklist.js';
 import { User } from '../models/userModels.js';
 import dotenv from 'dotenv';
+import { activeUsers } from '../utils/activeUsers.js';
+
 
 dotenv.config();
 
@@ -18,9 +20,11 @@ const adminPassword = process.env.ADMIN_PASSWORD;
 const isProduction = process.env.NODE_ENV;
 
 
+
+
 // ✅ Rate limiter for auth routes
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000, 
   max: 10,
   message: {
     error: 'Too many attempts from this IP, please try again later.'
@@ -29,11 +33,11 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+
+
 export function setupAuth(app) {
   app.use(cookieParser());
 
-  // ✅ Register Route
-  // In setupAuth(app)
 app.get('/register', (req, res) => {
   res.render('register', { error: null }); // Initially no error
 });
@@ -76,6 +80,9 @@ app.post('/register', authLimiter, autoCatchFn(async (req, res) => {
 }));
 
 
+
+
+
   // ✅ Admin-only route to list users
   app.get('/listUsers', ensureAdmin(), autoCatchFn(async (req, res) => {
     const users = await listUsers();
@@ -116,6 +123,9 @@ app.delete('/admin/users/:username', ensureAdmin(), autoCatchFn(async (req, res)
 }));
 
 
+
+
+
   // ✅ DELETE all non-admin users
   app.delete('/admin/users', ensureAdmin(), autoCatchFn(async (req, res) => {
     const result = await User.deleteMany({ username: { $ne: 'admin' } });
@@ -123,9 +133,12 @@ app.delete('/admin/users/:username', ensureAdmin(), autoCatchFn(async (req, res)
   }));
 
 
+
+
   app.get('/login', (req, res) => {
   res.render('login', { error: null }); // define error so it's safe in EJS
 });
+
 
 
 
@@ -165,7 +178,9 @@ app.post('/login', authLimiter, autoCatchFn(async (req, res) => {
     return res.status(401).render('login', { error: 'Incorrect password.' });
   }
 
+  // ✅ Add _id to JWT payload so it's available later
   userData = {
+    _id: user._id.toString(), // ✅ this fixes the missing userId issue
     username: user.username,
     email: user.email,
     role: 'user',
@@ -182,6 +197,18 @@ app.post('/login', authLimiter, autoCatchFn(async (req, res) => {
 
   console.log(`✅ ${user.username} login successful`);
 
+
+  // ✅ Add to activeUsers
+  if (!activeUsers.find(u => u._id === user._id.toString())) {
+    activeUsers.push({
+      _id: user._id.toString(),
+      username: user.username,
+      email: user.email,
+      examType: user.examType
+    });
+  }
+
+
   // ✅ Redirect based on examType
   switch (user.examType) {
     case 'Principal Superintendent':
@@ -196,6 +223,7 @@ app.post('/login', authLimiter, autoCatchFn(async (req, res) => {
       return res.redirect('/login');
   }
 }));
+
 
 
 
