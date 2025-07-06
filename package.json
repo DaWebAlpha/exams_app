@@ -23,7 +23,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "concurrently \"nodemon server.js\" \"browser-sync start --proxy localhost:3000 --files 'views/*.ejs, public/**/*.*' --port 4000\""
+    "dev": "concurrently \"nodemon server.js\" \"browser-sync start --proxy localhost:3000 --files 'views/*.ejs, public/**/*.*' --port 4000\"",
+    "sass": "sass --watch public/sass/style.scss:public/style/style.css"
   },
   "dependencies": {
     "axios": "^1.10.0",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "browser-sync": "^3.0.4",
     "concurrently": "^9.2.0",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "sass": "^1.89.2"
   }
 }
