@@ -1,4 +1,24 @@
 <%- include('partials/header', {title: 'Login Page'}) %>
+  <style>
+      .password-toggle {
+        position: absolute;
+        right: 1rem;
+        top: 75%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #6c757d;
+      }
+
+      .form-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .headerText {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+    </style>
 <%- include('partials/subnav')  %>
     <main role="main">
         <section class="login py-5 mt-5" id="login">

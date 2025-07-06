@@ -8,7 +8,7 @@ import { setupAuth } from './authentication/auth.js';
 import session from 'express-session'
 import paymentRoutes from './routes/paymentRoutes.js';
 import sessionConfig from './config/session.js';
-
+import resetRouter from './routes/resetRoutes.js';
 
 
 
@@ -51,6 +51,8 @@ setupAuth(app);
 // Serve Bootstrap CSS/JS from node_modules
 app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use(paymentRoutes);
+app.use(resetRouter)
+
 
 app.get('/cause-error', (req, res) => {
   throw new Error('Something went terribly wrong!');

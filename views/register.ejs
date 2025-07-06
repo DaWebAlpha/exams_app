@@ -1,4 +1,80 @@
 <%- include('partials/header', {title:'Sign Up'})%>
+<style>
+    .password-wrapper,
+    .password-wrapper1 {
+      position: relative;
+    }
+
+    .password-toggle,
+    .password-toggle1 {
+      position: absolute;
+      top: 70%;
+      right: 1rem;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #6c757d;
+      font-size: 1.2rem;
+      z-index: 2;
+      padding: 0.25rem;
+    }
+
+    input[type="password"] {
+      height: 45px;
+      line-height: 1.5;
+    }
+
+    
+        /* Style all input fields */
+        input {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+          margin-top: 6px;
+          margin-bottom: 16px;
+        }
+      
+        /* Password strength message box */
+        #message {
+          display: none;
+          background: #f1f1f1;
+          color: #000;
+          position: relative;
+          padding: 20px;
+          margin-top: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+      
+        #message p {
+          padding: 10px 35px;
+          font-size: 18px;
+          margin-bottom: 0;
+        }
+      
+        .valid {
+          color: green;
+        }
+      
+        .valid:before {
+          position: relative;
+          left: -35px;
+          content: "✔";
+        }
+      
+        .invalid {
+          color: red;
+        }
+      
+        .invalid:before {
+          position: relative;
+          left: -35px;
+          content: "✖";
+        }
+
+
+  </style>
 <%- include('partials/subnav')  %>
 
 <main role="main">
