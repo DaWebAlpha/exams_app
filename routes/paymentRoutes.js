@@ -37,7 +37,7 @@ router.post('/pay', async (req, res) => {
 
     res.redirect(paystackRes.data.data.authorization_url);
   } catch (error) {
-    console.error(error.response?.data || error.message);
+    
     res.status(500).send('Payment initialization failed.');
   }
 });
@@ -45,10 +45,10 @@ router.post('/pay', async (req, res) => {
 // Paystack calls this URL after payment
 router.get('/payment/callback', async (req, res) => {
   const reference = req.query.reference;
-  console.log("✅ Callback triggered. Reference received:", reference);
+  
 
   if (!reference) {
-    console.log("⚠️ No reference in query!");
+    
     return res.redirect('/register?error=No payment reference returned from Paystack');
   }
 
@@ -60,11 +60,11 @@ router.get('/payment/callback', async (req, res) => {
       }
     );
 
-    console.log("✅ Paystack verify response:", verifyRes.data);
+    
 
     const data = verifyRes.data.data;
     if (data.status === 'success') {
-      console.log("🎉 Payment verified successfully. Proceed to create user.");
+      
 
       // Extract data from metadata
       const { username, password, confirmPassword, examType } = data.metadata;
@@ -73,12 +73,12 @@ router.get('/payment/callback', async (req, res) => {
       // Check if user exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-        console.log("⚠️ User already exists:", email);
+        
         return res.redirect('/register?error=User already exists');
       }
 
       if (password !== confirmPassword) {
-        console.log("⚠️ Password mismatch");
+        
         return res.redirect('/register?error=Passwords do not match');
       }
 
@@ -93,14 +93,14 @@ router.get('/payment/callback', async (req, res) => {
         examType
       });
 
-      console.log("✅ User created successfully.");
+      
       res.redirect('/login?success=Registration complete! Please login');
     } else {
-      console.log("❌ Payment verification failed on Paystack:", data.status);
+    
       res.redirect('/register?error=Payment failed or incomplete');
     }
   } catch (error) {
-    console.error("❌ Verification error:", error.response?.data || error.message);
+    
     res.status(500).send('Payment verification failed.');
   }
 });

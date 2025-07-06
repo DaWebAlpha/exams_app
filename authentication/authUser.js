@@ -7,8 +7,6 @@ const SALT_ROUNDS = 10;
 
 export const get = async function (username) {
   const user = await User.findOne({ username });
-  console.log(`🔍 Looking for: ${username}`);
-  console.log(`✅ Found user:`, user);
   return user;
 };
 

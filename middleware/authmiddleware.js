@@ -31,7 +31,7 @@ export function ensureAdmin() {
       req.isAdmin = true;
       next();
     } catch (err) {
-      console.log('🛑 JWT verify error:', err.message);
+      
       return res.status(401).render('error', {
         title: 'Invalid Token',
         error: 'Your session has expired or token is invalid. Please log in again.'
@@ -56,7 +56,7 @@ export function ensureUser() {
       req.user = payload;
       next();
     } catch (err) {
-      console.log('🛑 User JWT verify error:', err.message);
+     
       return res.status(401).render('login', {
         error: 'Invalid session. Please log in again.'
       });

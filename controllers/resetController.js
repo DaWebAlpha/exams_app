@@ -25,7 +25,7 @@ export const handleForgotPassword = async (req, res) => {
   await user.save();
 
   const resetLink = `http://localhost:3000/reset-password/${token}`;
-  console.log(`📧 Reset link: ${resetLink}`);
+  
 
   res.render('forgotPasswordSuccess', {
     error: null,

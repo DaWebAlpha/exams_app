@@ -45,7 +45,7 @@ app.get('/register', (req, res) => {
 app.post('/register', authLimiter, autoCatchFn(async (req, res) => {
   const { username, password, email, examType } = req.body || {};
 
-  console.log(req.body);
+  
   if (!username || !password || !email || !examType) {
     return res.status(400).render('register', {
       error: 'All fields are required, including Exam Type.',
@@ -63,10 +63,10 @@ app.post('/register', authLimiter, autoCatchFn(async (req, res) => {
 
   try {
     await createUser({ username, password, email, examType });
-    console.log('✅ User registered');
+  
     return res.redirect('/login');
   } catch (err) {
-    console.error('❌ Registration error:', err);
+    
 
     let message = 'Registration failed.';
 
@@ -162,7 +162,7 @@ app.post('/login', authLimiter, autoCatchFn(async (req, res) => {
       sameSite: 'Strict',
     });
 
-    console.log('✅ Admin login successful');
+    
     return res.redirect('/admin/home');
   }
 
@@ -195,7 +195,7 @@ app.post('/login', authLimiter, autoCatchFn(async (req, res) => {
     sameSite: 'Strict',
   });
 
-  console.log(`✅ ${user.username} login successful`);
+ 
 
 
   // ✅ Add to activeUsers
@@ -237,7 +237,7 @@ app.post('/logout', (req, res) => {
   }
 
   res.clearCookie('token');
-  console.log('✅ User logged out');
+  
   return res.redirect('/login'); 
 });
 
