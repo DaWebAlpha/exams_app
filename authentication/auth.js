@@ -17,7 +17,7 @@ dotenv.config();
 
 const jwtSecret = process.env.JWT_SECRET;
 const adminPassword = process.env.ADMIN_PASSWORD;
-const isProduction = process.env.NODE_ENV;
+const isProduction = process.env.NODE_ENV === 'production';
 
 
 // ✅ Rate limiter for auth routes
