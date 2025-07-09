@@ -20,13 +20,6 @@ const adminPassword = process.env.ADMIN_PASSWORD;
 const isProduction = process.env.NODE_ENV;
 
 
-
-console.log('JWT_SECRET:', jwtSecret);
-console.log('ADMIN_PASSWORD:', adminPassword);
-console.log('MONGO_URI:', process.env.MONGO_URI);
-
-
-
 // ✅ Rate limiter for auth routes
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
