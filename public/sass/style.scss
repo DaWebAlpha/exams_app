@@ -143,26 +143,3 @@ input {
 }
 
 
-.reset-card {
-    border-radius: 0.75rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
-  }
-  .form-text {
-    font-size: 0.875rem;
-    color: #6c757d;
-  }
-  .input-group {
-    position: relative;
-  }
-  .form-group {
-    position: relative;
-    margin-bottom: 1.5rem;
-  }
-  .password-toggle {
-    cursor: pointer;
-    position: absolute;
-    right: 1rem;
-    top: 77%;
-    transform: translateY(-77%);
-    color: #6c757d;
-  }
