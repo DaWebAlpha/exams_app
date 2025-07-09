@@ -11,8 +11,6 @@ import sessionConfig from './config/session.js';
 import resetRouter from './routes/resetRoutes.js';
 
 
-
-
 /* Middleware */
 import { cors } from './middleware/cors.js';
 import { handleError } from './middleware/handleError.js';
@@ -20,10 +18,11 @@ import { notFound } from './middleware/notFound.js';
 import methodOverride from 'method-override';
 
 
+dotenv.config();
+
 
 const app = express()
 const PORT = process.env.PORT || 3000
-
 
 
 const __filename = fileURLToPath(import.meta.url);
