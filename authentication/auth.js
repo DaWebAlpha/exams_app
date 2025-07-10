@@ -19,11 +19,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const adminPassword = process.env.ADMIN_PASSWORD;
 const isProduction = process.env.NODE_ENV === 'production';
 
-res.cookie('token', token, {
-  httpOnly: true,
-  secure: false,       // <- change to false so it works on HTTP for now
-  sameSite: 'Strict',
-});
+
 
 // ✅ Rate limiter for auth routes
 const authLimiter = rateLimit({
@@ -159,9 +155,15 @@ app.post('/login', authLimiter, autoCatchFn(async (req, res) => {
     userData = { username: 'admin', role: 'admin' };
     const token = jwt.sign(userData, jwtSecret, { expiresIn: '2h' });
 
-    res.cookie('token', token, {
+    /* res.cookie('token', token, {
       httpOnly: true,
       secure: isProduction,
+      sameSite: 'Strict',
+    }); */
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: false,       // <- change to false so it works on HTTP for now
       sameSite: 'Strict',
     });
 
